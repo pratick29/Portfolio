@@ -42,3 +42,9 @@ src/
 ├── assets/        # Images and static assets
 ├── App.jsx
 └── main.jsx
+
+
+
+<img width="1885" height="937" alt="Screenshot 2026-01-10 003242" src="https://github.com/user-attachments/assets/6773f4be-7764-402c-bb7c-97de1f8a8daa" />
+
+
