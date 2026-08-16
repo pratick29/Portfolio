@@ -14,7 +14,7 @@ export default function Resume() {
         <a
           href="/Pratik_Bothra_Resume.pdf"
           download
-          className="inline-block px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition"
+          className="inline-block px-8 py-3 rounded-xl bg-gradient-to-r from-sky-400 to-violet-400 hover:opacity-90 transition"
         >
           Download Resume
         </a>

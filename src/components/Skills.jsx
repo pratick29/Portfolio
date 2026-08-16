@@ -1,115 +1,76 @@
-import {
-  FaPython,
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaPhp,
-  FaGitAlt,
-} from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import SectionLabel from "./ui/SectionLabel";
+import Reveal from "./ui/Reveal";
+import SkillConstellation from "./SkillConstellation";
+import EducationTerminal from "./EducationTerminal";
 
-import {
-  SiMysql,
-  SiGithub,
-  SiC,
-  SiCplusplus,
-} from "react-icons/si";
-
-import { VscCode } from "react-icons/vsc";
-
-import { MdComputer, MdNetworkCheck } from "react-icons/md";
-import { GiBrain } from "react-icons/gi";
-
-/**
- * Skill data
- * Icons are stored as REFERENCES (not JSX) — this avoids crashes
- */
-const skillCategories = [
-  {
-    title: "Languages",
-    items: [
-      { name: "C", icon: SiC },
-      { name: "C++", icon: SiCplusplus },
-      { name: "Python", icon: FaPython },
-    ],
-  },
-  {
-    title: "Web Development",
-    items: [
-      { name: "HTML", icon: FaHtml5 },
-      { name: "CSS", icon: FaCss3Alt },
-      { name: "JavaScript", icon: FaJs },
-      { name: "PHP", icon: FaPhp },
-    ],
-  },
-  {
-    title: "Databases",
-    items: [
-      { name: "MySQL", icon: SiMysql },
-    ],
-  },
-  {
-    title: "Developer Tools",
-    items: [
-      { name: "VS Code", icon:VscCode },
-      { name: "GitHub", icon: SiGithub },
-      { name: "Git", icon: FaGitAlt },
-    ],
-  },
-  {
-    title: "Core Concepts",
-    items: [
-      { name: "Object-Oriented Programming", icon: GiBrain },
-      { name: "Data Structures & Algorithms", icon: GiBrain },
-      { name: "Computer Networks", icon: MdNetworkCheck },
-      { name: "Operating Systems", icon: MdComputer },
-      { name: "Software Development", icon: MdComputer },
-      { name: "Design Thinking", icon: GiBrain },
-    ],
-  },
-];
+const tabs = ["skills", "education"];
 
 export default function Skills() {
+  const [tab, setTab] = useState("skills");
+
+  useEffect(() => {
+    const onSwitch = (e) => {
+      const next = e.detail?.tab;
+      if (next === "education" || next === "skills") setTab(next);
+    };
+    window.addEventListener("switch-tab", onSwitch);
+    return () => window.removeEventListener("switch-tab", onSwitch);
+  }, []);
+
   return (
-    <section className="py-20 px-4 sm:px-6">
-      <h2 className="text-center text-2xl sm:text-3xl font-semibold mb-12">
-        Skills
-      </h2>
+    <section id="skills" className="py-24 px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl">
+        <Reveal>
+          <SectionLabel index="03" color="sky">Skills / Education</SectionLabel>
+        </Reveal>
 
-      <div className="max-w-6xl mx-auto grid gap-8 sm:grid-cols-2">
-        {skillCategories.map((category) => (
+        <Reveal>
           <div
-            key={category.title}
-            className="bg-white/80 dark:bg-white/5
-                       border border-slate-200 dark:border-white/10
-                       rounded-2xl p-6"
+            id="education"
+            className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white p-1 dark:border-white/[0.08] dark:bg-white/[0.02]"
           >
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-4">
-              {category.title}
-            </h3>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {category.items.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.name}
-                    className="flex items-center gap-3
-                               px-3 py-2 rounded-xl
-                               bg-slate-100 dark:bg-slate-800
-                               text-slate-700 dark:text-slate-300
-                               hover:scale-[1.03]
-                               transition-all"
-                  >
-                    <Icon className="text-lg text-blue-600 dark:text-blue-400" />
-                    <span className="text-sm font-medium">
-                      {item.name}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+            {tabs.map((name) => (
+              <button
+                key={name}
+                onClick={() => setTab(name)}
+                aria-pressed={tab === name}
+                className={`rounded-md px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors ${
+                  tab === name
+                    ? "bg-sky-500/10 text-sky-600 dark:bg-sky-400/10 dark:text-sky-400"
+                    : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                }`}
+              >
+                {name}
+              </button>
+            ))}
           </div>
-        ))}
+        </Reveal>
+
+        <AnimatePresence mode="wait">
+          {tab === "skills" ? (
+            <motion.div
+              key="skills"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+            >
+              <SkillConstellation />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="education"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+            >
+              <EducationTerminal />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

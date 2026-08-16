@@ -30,7 +30,7 @@ export default function ResumeViewer() {
             href="/Pratik_Bothra_Resume.pdf"
             download
             className="inline-block px-6 py-3 rounded-xl
-                       bg-blue-600 hover:bg-blue-700
+                       bg-sky-600 hover:bg-sky-700
                        hover:scale-[1.03] active:scale-[0.97]
                        transition-all duration-200"
           >

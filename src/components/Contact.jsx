@@ -1,60 +1,84 @@
-import { motion } from "framer-motion";
+import { profile } from "../data/profile";
+import SectionLabel from "./ui/SectionLabel";
+import Reveal from "./ui/Reveal";
+import Terminal from "./ui/Terminal";
+import Highlight from "./ui/Highlight";
+
+const inputClass =
+  "w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-200 placeholder:text-slate-500 outline-none transition-colors focus:border-violet-400/60 focus:ring-1 focus:ring-violet-400/30";
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-24 px-6 text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="max-w-xl mx-auto"
-      >
-        <h2 className="text-3xl font-semibold mb-6 text-slate-900 dark:text-white">
-          Contact Me
-        </h2>
+    <section id="contact" className="py-24 px-4 sm:px-6">
+      <div className="mx-auto max-w-3xl">
+        <Reveal>
+          <SectionLabel index="07" color="violet">Contact</SectionLabel>
+        </Reveal>
 
-        <p className="text-slate-600 dark:text-slate-400 mb-10">
-          Let’s work together — freelancing or job opportunities.
-        </p>
+        <Reveal>
+          <Terminal title="contact" right="[ formspree ]">
+            <div className="px-4 py-4 sm:px-5">
+              <div className="flex items-center gap-2 font-mono text-[10px] text-slate-600">
+                <span className="text-violet-400/80">➜</span>
+                <span className="text-violet-300/80">~/contact</span>
+                <span>$</span>
+                <span className="text-slate-400">sendmail --to pratick</span>
+              </div>
 
-        <form
-          action="https://formspree.io/f/mbdlvnzd"
-          method="POST"
-          className="space-y-4"
-        >
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            required
-            className="w-full p-3 rounded-lg bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10"
-          />
+              <div className="mt-4 rounded-xl border border-white/[0.06] bg-white/[0.02] p-8 text-center md:p-10">
+                <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+                  {profile.contact.title}
+                </h2>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            required
-            className="w-full p-3 rounded-lg bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10"
-          />
+                <p className="mx-auto mt-4 max-w-md leading-relaxed text-slate-400">
+                  <Highlight text={profile.contact.text} />
+                </p>
 
-          <textarea
-            name="message"
-            rows="5"
-            placeholder="Your Message"
-            required
-            className="w-full p-3 rounded-lg bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10"
-          />
+                <form
+                  action={profile.contact.formspreeEndpoint}
+                  method="POST"
+                  className="mt-10 space-y-4 text-left"
+                >
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      required
+                      autoComplete="name"
+                      className={inputClass}
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      required
+                      autoComplete="email"
+                      className={inputClass}
+                    />
+                  </div>
 
-          <button
-            type="submit"
-            className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 shadow-sm hover:shadow-md"
-          >
-            Send Message
-          </button>
-        </form>
-      </motion.div>
+                  <textarea
+                    name="message"
+                    rows="5"
+                    placeholder="Your Message"
+                    required
+                    className={inputClass}
+                  />
+
+                  <button
+                    type="submit"
+                    className="w-full rounded-lg bg-violet-500/15 py-3 font-mono text-sm font-medium tracking-widest text-violet-300 transition-all hover:bg-violet-500/25 active:scale-[0.99]"
+                  >
+                    <span className="text-slate-600">[</span> send message{" "}
+                    <span className="text-slate-600">]</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </Terminal>
+        </Reveal>
+      </div>
     </section>
   );
 }

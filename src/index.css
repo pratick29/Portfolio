@@ -1,9 +1,325 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html {
   scroll-behavior: smooth;
 }
+
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.dark body {
+  background-color: #09090b;
+  color: #e2e8f0;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.3);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 150ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(59, 130, 246, 0.5);
+  background-clip: padding-box;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  background-clip: padding-box;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(59, 130, 246, 0.45);
+  background-clip: padding-box;
+}
+
+.scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.4) transparent;
+}
+
+.scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.35);
+  border-radius: 9999px;
+  border: none;
+  background-clip: padding-box;
+}
+
+.scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+  background-clip: padding-box;
+}
+
+.dark .scroll-area {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.dark .scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  background-clip: padding-box;
+}
+
+.dark .scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.45);
+  background-clip: padding-box;
+}
+
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+}
+
+:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.6);
+  outline-offset: 2px;
+}
+
+.command-palette :focus,
+.command-palette :focus-visible {
+  outline: none;
+}
+
+.terminal-about :focus,
+.terminal-about :focus-visible {
+  outline: none;
+}
+
+.caret-blink {
+  animation: caret-blink 1s step-end infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.md-content {
+  line-height: 1.75;
+  color: #475569;
+  font-size: 1rem;
+}
+
+.dark .md-content {
+  color: #cbd5e1;
+}
+
+.md-content h1,
+.md-content h2,
+.md-content h3,
+.md-content h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  margin: 2rem 0 0.75rem;
+}
+
+.md-content h1:first-child,
+.md-content h2:first-child,
+.md-content h3:first-child,
+.md-content h4:first-child {
+  margin-top: 0;
+}
+
+.dark .md-content h1,
+.dark .md-content h2,
+.dark .md-content h3,
+.dark .md-content h4 {
+  color: #f8fafc;
+}
+
+.md-content h1 { font-size: 1.5rem; }
+.md-content h2 { font-size: 1.25rem; }
+.md-content h3 { font-size: 1.1rem; }
+.md-content h4 { font-size: 1rem; }
+
+.md-content p {
+  margin: 0 0 1rem;
+}
+
+.md-content strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.dark .md-content strong {
+  color: #f1f5f9;
+}
+
+.md-content a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.md-content a:hover {
+  color: #1d4ed8;
+}
+
+.dark .md-content a {
+  color: #60a5fa;
+}
+
+.dark .md-content a:hover {
+  color: #93c5fd;
+}
+
+.md-content ul,
+.md-content ol {
+  margin: 0 0 1rem;
+  padding-left: 1.5rem;
+}
+
+.md-content ul {
+  list-style: disc;
+}
+
+.md-content ol {
+  list-style: decimal;
+}
+
+.md-content li {
+  margin: 0.25rem 0;
+}
+
+.md-content blockquote {
+  margin: 0 0 1rem;
+  border-left: 2px solid rgba(59, 130, 246, 0.5);
+  padding: 0.25rem 0 0.25rem 1rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+.dark .md-content blockquote {
+  color: #94a3b8;
+}
+
+.md-content code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.85em;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 0.15em 0.35em;
+}
+
+.dark .md-content code {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.md-content pre {
+  margin: 0 0 1rem;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  padding: 1rem;
+}
+
+.dark .md-content pre {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: #0c0c10;
+}
+
+.md-content pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.85em;
+  line-height: 1.6;
+}
+
+.md-content table {
+  width: 100%;
+  margin: 0 0 1rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  display: block;
+}
+
+.md-content th,
+.md-content td {
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.dark .md-content th,
+.dark .md-content td {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.md-content th {
+  font-weight: 600;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.dark .md-content th {
+  background: rgba(255, 255, 255, 0.04);
+  color: #f1f5f9;
+}
+
+.md-content hr {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.dark .md-content hr {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── terminal skill log ────────────────────────────────────── */
+
+.cn-cursor {
+  animation: cn-cursor 1s steps(2, start) infinite;
+}
+
+@keyframes cn-cursor {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

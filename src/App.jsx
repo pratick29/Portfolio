@@ -1,64 +1,77 @@
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
+import { lazy, Suspense } from "react";
+import { motion } from "framer-motion";
 import Navbar from "./components/Navbar";
-// import ThemeToggle from "./components/ThemeToggle";
 import Footer from "./components/Footer";
-// import ResumeViewer from "./components/ResumeViewer";
 import ScrollProgress from "./components/ScrollProgress";
-import Blog from "./components/Blog";
-import Education from "./components/Education";
 import QuickContact from "./components/QuickContact";
+import CommandPalette from "./components/CommandPalette";
+import BackButton from "./components/BackButton";
+import { Router } from "./router";
+import { useRouter } from "./use-router";
+import NotFoundPage from "./pages/NotFoundPage";
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
+const ProjectDetailPage = lazy(() => import("./pages/ProjectDetailPage"));
+const NotesPage = lazy(() => import("./pages/NotesPage"));
+const NoteDetailPage = lazy(() => import("./pages/NoteDetailPage"));
+const PratickLabsPage = lazy(() => import("./pages/PratickLabsPage"));
+
+function AppRoutes() {
+  const { path } = useRouter();
+
+  let page;
+
+  if (path === "/") {
+    page = <HomePage />;
+  } else if (path === "/pratick-labs") {
+    page = <PratickLabsPage />;
+  } else if (path.startsWith("/projects")) {
+    const rest = path.slice("/projects".length);
+    page =
+      rest === "" || rest === "/" ? (
+        <ProjectsPage />
+      ) : (
+        <ProjectDetailPage slug={decodeURIComponent(rest.slice(1))} />
+      );
+  } else if (path.startsWith("/notes")) {
+    const rest = path.slice("/notes".length);
+    page =
+      rest === "" || rest === "/" ? (
+        <NotesPage />
+      ) : (
+        <NoteDetailPage slug={decodeURIComponent(rest.slice(1))} />
+      );
+  } else {
+    page = <NotFoundPage />;
+  }
+
+  return (
+    <motion.div
+      key={path}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: [0.21, 0.47, 0.32, 0.98] }}
+    >
+      <Suspense fallback={null}>{page}</Suspense>
+    </motion.div>
+  );
+}
 
 export default function App() {
   return (
-  <div className="max-w-7xl mx-auto">
-<div className="
-  bg-slate-50 text-slate-800
-  dark:bg-slate-950 dark:text-slate-200
-  min-h-screen
-">
-    <ScrollProgress />
-  <Navbar />
-
-
-    
-    <Hero />
-    <About />
-    <div className="w-full h-px bg-gradient-to-r 
-                from-transparent 
-                via-gray-300/20 
-                to-transparent 
-                my-24" />
-<Education />
-      <Skills />
-<div className="w-full h-px bg-gradient-to-r 
-                from-transparent 
-                via-gray-300/20 
-                to-transparent 
-                my-24" />
-
-    <Projects />
-<div className="w-full h-px bg-gradient-to-r 
-                from-transparent 
-                via-gray-300/20 
-                to-transparent 
-                my-24" />
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300/20 to-transparent my-16 md:my-24" />
-
-<div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300/20 to-transparent my-16 md:my-24" />
-
-<Blog />
-
-<div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300/20 to-transparent my-16 md:my-24" />
-
-<QuickContact />
-    <Contact />
-    <Footer />
-
-  </div>
-  </div>
+    <Router>
+      <div className="min-h-screen bg-slate-50 text-slate-900 antialiased dark:bg-[#09090b] dark:text-slate-200">
+        <ScrollProgress />
+        <Navbar />
+        <CommandPalette />
+        <main>
+          <AppRoutes />
+        </main>
+        <Footer />
+        <QuickContact />
+        <BackButton />
+      </div>
+    </Router>
   );
 }
