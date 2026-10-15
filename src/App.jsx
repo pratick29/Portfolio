@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
@@ -71,6 +72,7 @@ export default function App() {
         <Footer />
         <QuickContact />
         <BackButton />
+        <Analytics />
       </div>
     </Router>
   );

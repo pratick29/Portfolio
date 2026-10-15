@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.24.7",
     "front-matter": "^4.0.2",
     "marked": "^18.0.9",
